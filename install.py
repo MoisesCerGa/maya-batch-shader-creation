@@ -4,17 +4,14 @@ import maya.cmds as cmds
 import maya.mel as mel
 
 def onMayaDroppedPythonFile(*args, **kwargs):
-    """This function is required for drag-and-drop installation in Maya."""
-    _onMayaDropped()  # Calls the installation function
+    _onMayaDropped()  
 
 def get_maya_prefs_scripts_dir():
-    """Retrieve Maya's preferences directory for the current version and ensure a 'plug-ins' folder exists."""
-    maya_version = cmds.about(version=True)  # Get the current Maya version (e.g., "2024")
-    maya_app_dir = cmds.internalVar(userAppDir=True)  # Base Maya user directory
-    prefs_dir = os.path.join(maya_app_dir, maya_version)  # Path to mayaprefs/{year}
+    maya_version = cmds.about(version=True) 
+    maya_app_dir = cmds.internalVar(userAppDir=True)  
+    prefs_dir = os.path.join(maya_app_dir, maya_version) 
     scripts_dir = os.path.join(prefs_dir, "scripts")
 
-    # Create the directories if they don't exist
     if not os.path.exists(scripts_dir):
         os.makedirs(scripts_dir)
         print(f"Created directory: {scripts_dir}")
@@ -24,21 +21,18 @@ def get_maya_prefs_scripts_dir():
     return scripts_dir
 
 def _onMayaDropped():
-    """Install the plugin into Maya's preferences plug-ins directory."""
     
-    source_path = os.path.dirname(__file__)  # Get the script's directory
+    source_path = os.path.dirname(__file__)  
     scripts_dir = get_maya_prefs_scripts_dir()
     tool_name = "texture_search_and_import.py"
     target_path = os.path.join(scripts_dir, tool_name)
 
-    # Copy plugin file
     if not os.path.exists(target_path):
         shutil.copy2(os.path.join(source_path, tool_name), target_path)
         print(f"Tool installed to {target_path}")
     else:
         print(f"Tool already exists in {scripts_dir}.")
 
-    # Copy icons
     for img_name in ["texture_import_shelf_icon.svg", "texture_import_shelf_icon.svg"]:
         source_img_path = os.path.join(source_path, img_name)
         target_img_path = os.path.join(scripts_dir, img_name)
@@ -48,11 +42,9 @@ def _onMayaDropped():
         else:
             print(f"Warning: {img_name} not found in source directory.")
 
-    # Create Shelf Button
     create_shelf_button()
 
 def create_shelf_button():
-    """Create a custom shelf button in Maya."""
     shelf_name = "MoisesTools"
     
     if cmds.shelfLayout(shelf_name, exists=True):
