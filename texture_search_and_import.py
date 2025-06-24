@@ -85,7 +85,6 @@ class ShaderCreation(QtWidgets.QDialog):
         
 
     def create_layouts(self):
-        """Creates a clean and structured layout for the UI."""
         
         main_layout = QtWidgets.QVBoxLayout(self)
         
@@ -112,18 +111,15 @@ class ShaderCreation(QtWidgets.QDialog):
         """) 
         main_layout.addWidget(instructions_group)
         
-        # ?? Naming Mode Section
         naming_mode_group = QtWidgets.QGroupBox("Created Mtl Naming Preview")
         naming_mode_layout = QtWidgets.QHBoxLayout()
 
-        # Naming Mode ComboBox
         self.naming_mode.setStyleSheet("""
             font-size: 16px; padding: 5px; border: 1px solid #666; border-radius: 5px;
             background-color: #222; color: white;
         """)
         naming_mode_layout.addWidget(self.naming_mode)
 
-        # Filename Preview (Aligned Left)
         preview_layout = QtWidgets.QVBoxLayout()
         self.preview_label.setAlignment(QtCore.Qt.AlignLeft)
         self.preview_label_two.setAlignment(QtCore.Qt.AlignLeft)
@@ -134,7 +130,6 @@ class ShaderCreation(QtWidgets.QDialog):
         preview_layout.addWidget(self.preview_label)
         preview_layout.addWidget(self.preview_label_two)
 
-        # Add Preview to the Right of Naming Mode
         naming_mode_layout.addLayout(preview_layout)
 
         naming_mode_group.setLayout(naming_mode_layout)
@@ -239,16 +234,9 @@ class ShaderCreation(QtWidgets.QDialog):
         self.naming_mode.currentTextChanged.connect(self.update_preview)
 
     def create_shaders(self, name):
-        """
-        Creates an Arnold aiStandardSurface material and a shading group, naming them 
-        based on the provided name.
-        """
         if not name.strip():
             om.MGlobal.displayError("No valid name provided for the shader.")
             return None
-
-
-        # This is what should be changed if the namig convention is changed
         
         if self.naming_mode.currentText() == "Prefix":
             material_name = f"mtl_{name}"
@@ -278,11 +266,6 @@ class ShaderCreation(QtWidgets.QDialog):
         
         
     def search_existing_textures(self, name, material, shading_group):
-        """
-        Searches for all relevant textures in the sourceimages folder,
-        creates the necessary file texture nodes, applies color correction,
-        and connects them to the aiStandardSurface shader.
-        """
         project_path = cmds.workspace(q=True, rootDirectory=True)  
         textures_path = os.path.join(project_path, "sourceimages")  
 
@@ -427,7 +410,6 @@ class ShaderCreation(QtWidgets.QDialog):
         self.show_connection_dialog(connection_list, no_texture_found_list)
     
     def apply_styles(self):
-        """Applies custom styles to the UI."""
         self.setStyleSheet("""
             QGroupBox {
                 font-weight: bold;
@@ -511,7 +493,6 @@ class ShaderCreation(QtWidgets.QDialog):
             self.preview_label_two.setText("'name'_sG")
         
     def show_connection_dialog(self, connection_list, no_texture_found_list):
-        """Displays a styled QDialog with the list of connected textures."""
         
         dialog = QtWidgets.QDialog(self)
         dialog.setWindowTitle("Texture Connection Report")
@@ -582,7 +563,6 @@ class PossibleNamesUI(QtWidgets.QDialog):
         self.apply_styles()
 
     def create_widgets(self):
-        """Create UI elements."""
         self.list_widget = QtWidgets.QListWidget()
         self.list_widget.addItems(self.new_possible_names)
         self.list_widget.setSelectionMode(QtWidgets.QAbstractItemView.MultiSelection)  
@@ -592,7 +572,6 @@ class PossibleNamesUI(QtWidgets.QDialog):
         self.close_btn = QtWidgets.QPushButton("Cancel")
 
     def create_layouts(self):
-        """Set up UI layout."""
         main_layout = QtWidgets.QVBoxLayout(self)
         main_layout.addWidget(QtWidgets.QLabel("Select names to remove:"))
         main_layout.addWidget(self.list_widget)
@@ -606,27 +585,23 @@ class PossibleNamesUI(QtWidgets.QDialog):
         main_layout.addLayout(btn_layout)
 
     def create_connections(self):
-        """Connect UI elements to functions."""
         self.remove_btn.clicked.connect(self.remove_selected_items)
         self.confirm_btn.clicked.connect(self.confirm_selection)
         self.close_btn.clicked.connect(self.close_clicked)
 
     def remove_selected_items(self):
-        """Remove selected items from the list."""
         selected_items = self.list_widget.selectedItems()
         for item in selected_items:
             self.new_possible_names.remove(item.text()) 
             self.list_widget.takeItem(self.list_widget.row(item)) 
 
     def confirm_selection(self):
-        """Return the new list and close the dialog."""
         self.accept() 
         
     def close_clicked(self):
         self.close()
 
     def apply_styles(self):
-        """Apply styles to the UI."""
         self.setStyleSheet("""
             QDialog {
                 background-color: #2A2A2A;
@@ -673,7 +648,6 @@ class PossibleNamesUI(QtWidgets.QDialog):
         """)
 
     def exec_(self):
-        """Execute the dialog and return the modified list."""
         result = super().exec_()
         if result == QtWidgets.QDialog.Accepted:
             return self.new_possible_names
