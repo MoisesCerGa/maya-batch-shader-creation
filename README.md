@@ -6,9 +6,17 @@ This project was made to simplify the creation of shaders from images in the sou
 
 I was first promped to create this tool by my friend Murat as he found the task of creating shaders and color correction nodes and placing the correct color space, UDIM config, etc repetitive. After some iteration we arrived to this solution, if you have any recommendations they would be greatly appreciated!
 
-# Tool in Use Video
-If you'd like to see the tool being used please visit my artstation: https://www.artstation.com/artwork/Gvdw2N
-Here I have a small visual showcase of the tool, as well as other works.
+# Tool
+https://github.com/user-attachments/assets/1cb29d24-a2c8-4a4d-8eb0-1d310d12fccf
+
+Basic usage of the tool, it finds matching naming groups, prompts the user to discard the unwanted ones, creates the rest. The tool also tells you which textures were found and connected afterwards.
+
+https://github.com/user-attachments/assets/43cbef46-9ae3-4025-b7fc-1f642c9ceb2e
+
+It automatically assigns the correct colorspace, UDIMs and color correction nodes ready for lookdev.
+
+If you like the tool, make sure to visit my artstation to see my other projects.
+https://www.artstation.com/moises-cg
 
 # Instalation
         Drag and drop the 'install.py' to the maya viewport
