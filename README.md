@@ -18,6 +18,10 @@ I was first promped to create this tool by my friend Murat as he found the task 
         You still have to assign the created materials to the correct mesh, but all the work of placing the nodes 
         and color correction nodes for lookdev is simplified!
 
+# Tool in Use Video
+If you'd like to see the tool being used please visit my artstation: https://www.artstation.com/artwork/Gvdw2N
+Here I have a small visual showcase of the tool, as well as other works.
+
 # Feedback and Bug Reports
 
 I hope you like the tool and find it useful! If any errors arise or you have any recommendation for the tool's improvement, I would be very happy to hear it. You can always message me in LinkedIn: https://www.linkedin.com/in/moises-cg/
